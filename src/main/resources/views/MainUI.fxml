@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane fx:id="mainPane" prefHeight="780.0" prefWidth="1104.0" minHeight="780" minWidth="1104"
+            xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.inh3rit.ftptools.controller.MainUIController"
+            stylesheets="/styles/zktools.css" onKeyPressed="#handleEnter">
+
+    <top>
+        <FlowPane alignment="CENTER" prefHeight="60">
+            <HBox prefHeight="40" spacing="10">
+                <Label fx:id="urlLab" textAlignment="CENTER" styleClass="font_size_14" prefHeight="40"
+                       text="zookeeper url"/>
+                <TextField fx:id="urlTxt" minWidth="260" text="47.106.143.175:2181"/>
+                <TextField fx:id="rootPathTxt" maxWidth="120" promptText="监控根节点"/>
+                <JFXButton text="连接" fx:id="connectBtn" onMouseClicked="#handleConnect"/>
+                <JFXButton text="断开" fx:id="disconnectBtn" onMouseClicked="#handleDisconnect"/>
+            </HBox>
+        </FlowPane>
+    </top>
+    <center>
+        <SplitPane fx:id="splitPane" dividerPositions="0.25">
+            <items>
+                <VBox>
+                    <children>
+                        <HBox spacing="5">
+                            <TextField prefWidth="200" prefHeight="40" alignment="CENTER_LEFT"/>
+                            <JFXButton fx:id="findBtn" maxWidth="40"/>
+                        </HBox>
+                        <AnchorPane prefHeight="560" minHeight="500" VBox.vgrow="SOMETIMES">
+                            <TreeView fx:id="rootTree" onMouseClicked="#handleGetNodeInfo"
+                                      AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"
+                                      AnchorPane.leftAnchor="0">
+                                <contextMenu>
+                                    <ContextMenu>
+                                        <items>
+                                            <MenuItem text="添加节点" onAction="#handleAddNode"/>
+                                            <MenuItem text="删除节点" onAction="#handleDeleteNode"/>
+                                        </items>
+                                    </ContextMenu>
+                                </contextMenu>
+                            </TreeView>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+                <AnchorPane>
+                    <VBox AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"
+                          AnchorPane.leftAnchor="0">
+                        <children>
+                            <JFXTabPane fx:id="contentPane" prefHeight="500" prefWidth="830" VBox.vgrow="ALWAYS">
+                                <Tab closable="false" text="节点名">
+                                    <content>
+                                        <JFXTextArea fx:id="nodeName" editable="false" prefWidth="-Infinity"
+                                                     prefHeight="-Infinity"/>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="节点值">
+                                    <content>
+                                        <JFXTextArea fx:id="nodeValue" prefWidth="-Infinity"
+                                                     prefHeight="-Infinity"/>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="节点属性">
+                                    <GridPane fx:id="nodePropPane">
+                                        <Label text="ctime:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_ctime" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Label text="dataLength:"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_dataLength" editable="false"
+                                                   GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                                        <Label text="mtime:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_mtime" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Label text="ephemeralOwner:"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_ephemeralOwner" editable="false"
+                                                   GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                                        <Label text="cZxid:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_cZxid" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Label text="numChildren:"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_numChildren" editable="false"
+                                                   GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                                        <Label text="mZxid:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="4">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_mZxid" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Label text="aversion:"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_aversion" editable="false"
+                                                   GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                                        <Label text="pZxid:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="5">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_pZxid" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Label text="cversion:"
+                                               GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_cversion" editable="false"
+                                                   GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                                        <Label text="version:"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="6">
+                                            <GridPane.margin>
+                                                <Insets bottom="5"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField fx:id="node_version" editable="false"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                            <GridPane.margin>
+                                                <Insets right="20" bottom="5"/>
+                                            </GridPane.margin>
+                                        </TextField>
+                                    </GridPane>
+                                </Tab>
+                            </JFXTabPane>
+                        </children>
+                        <children>
+                            <HBox maxHeight="30" minHeight="30" spacing="10" alignment="CENTER_LEFT">
+                                <VBox.margin>
+                                    <Insets left="5"/>
+                                </VBox.margin>
+                                <JFXButton fx:id="updateBtn" text="更新" onMouseClicked="#handleUpdate" />
+                                <JFXCheckBox fx:id="urlDecodeCheckBox" text="URL解码" onMouseClicked="#handleUrlDecode" />
+                                <JFXCheckBox fx:id="dubboCheckBox" text="美化(dubbo)" onMouseClicked="#handleDubbo" />
+                            </HBox>
+                        </children>
+                        <children>
+                            <JFXTextArea fx:id="logTxtArea" promptText="" editable="false"/>
+                        </children>
+                    </VBox>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </center>
+
+</BorderPane>
